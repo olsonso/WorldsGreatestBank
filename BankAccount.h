@@ -13,16 +13,14 @@ public:
 	string accountName;
 
 	BankAccount();
-
-	//Constructor
-	BankAccount(double inital_amount, std::string name);
+	BankAccount(double inital_amount);
 
 	void menu(void);
 	void createNewAccount();
 	void deposit(double amount);
 	void withdraw(double amount);
 	void checkAccountBalance(string accountName);
-	// void transactionHistory(void);
+	void transactionHistory(string accountName);
 	
 	//Acessors
 	double amount() const;
