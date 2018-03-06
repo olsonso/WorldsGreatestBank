@@ -1,13 +1,9 @@
-# WorldsGreatestBank
+# WorldsGreatestBank <p>
+-Create a new account<p>
+-Login<p>
+-Record a deposit<p>
+-Record a withdrawal<p>
+-Check balance<p>
+-See transaction history<p>
+-Log out<p>
 
-/* Program that does the following
-
--Create a new account
--Login
--Record a deposit
--Record a withdrawal
--Check balance
--See transaction history
--Log out
-
-*/
