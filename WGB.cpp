@@ -12,7 +12,6 @@
 
 #include <iostream>
 #include <string>
-//#include "WGB.h"
 #include "BankAccount.h"
 
 using namespace std;
@@ -21,12 +20,6 @@ int main(){
 	
 	
 	BankAccount account;
-	string user_input;
-	string username;
-	string password;
-	string deposit_amount;
-	string withdraw_amount;
-
 	BankAccount obj;
 	std::cout << "\n ___________________________________________\n" << endl;
 	std::cout << "\nWelcome to the Worlds Greatest Bank Ledger!\n" << endl;
