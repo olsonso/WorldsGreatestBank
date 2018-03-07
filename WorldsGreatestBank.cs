@@ -7,11 +7,10 @@ namespace BankAccount
         private static double balance;
         private static double withdraw;
         private static double deposit;
-        private static double finalbalance;
+
         private static void Menu()
         {
-            Console.WriteLine("Worlds Greatest Bank Ledger!");
-            Console.WriteLine("Please Select an Option Below");
+            Console.WriteLine("Please Select an Option Below:");
             Console.WriteLine("1 - Create Account");
             Console.WriteLine("2 - Deposit");
             Console.WriteLine("3 - Withdrawal");
@@ -25,12 +24,15 @@ namespace BankAccount
             return Console.ReadLine();
         }
 
-        private static void ProcessSelection(string selection)
+        private static void menuSelection(string selection)
         {
             selection = selection.ToUpper();
 
             switch (selection)
             {
+                case "1":
+                    CreateNewAccount();
+                    break;
                 case "2":
                     ProcessDeposit();
                     break;
@@ -52,12 +54,19 @@ namespace BankAccount
             }
         }
 
+        private static void CreateNewAccount()
+        {
+            string userName = string.Empty;
+            Console.WriteLine("Please enter a name for your new account");
+            userName = Console.ReadLine();
+            Console.WriteLine("You have create a new account for {0:C2}", userName);
+        }
+
+
         private static void ProcessDeposit()
         {
             string userInput = string.Empty;
-
-
-            Console.WriteLine("How Much Do You wish to Deposit?.");
+            Console.WriteLine("How much do you want to deposit?.");
             userInput = Console.ReadLine();
             deposit = Double.Parse(userInput);
 
@@ -72,8 +81,7 @@ namespace BankAccount
         private static void ProcessWithdrawl()
         {
             string userInput = string.Empty;
-
-            Console.WriteLine("How Much Do You Wish to make a withdrawal?.");
+            Console.WriteLine("How much do you want to withdrawal?.");
             userInput = Console.ReadLine();
             withdraw = Double.Parse(userInput);
             int withdrawcharge = int.Parse(userInput);
@@ -88,22 +96,20 @@ namespace BankAccount
       
         private static void ProcessCheckBalance()
         {
-            Console.WriteLine("Your balance is {0:C}", balance);
+            Console.WriteLine("Your current balance is {0:C}", balance);
         }
 
 
         private static void TotalTransactions()
         {
-            Console.WriteLine("Your total transactions");
+            Console.WriteLine("Your total transactions:");
 
         }
 
 
         private static void QuitApplication()
         {
-            finalbalance = balance;
-            Console.WriteLine("Final total is {0:c}", balance);
-            Console.WriteLine("Bye.");
+            Console.WriteLine("Have a great day!.");
 
         }
 
@@ -116,7 +122,7 @@ namespace BankAccount
 
                 Menu();
                 user_input = GetUserInput();
-                ProcessSelection(user_input);
+                menuSelection(user_input);
 
 
 
