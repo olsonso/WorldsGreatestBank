@@ -7,8 +7,11 @@
 -See transaction history<p>
 -Log out<p>
   
-  <b>
-#How it works:
+# How to compile
+ g++ -o exec WGB.cpp BankAccount.cpp
+ ./exec
+
+# Function Definitions:
 <p></b>
 openAccount() - writes to accounts.txt to add new user account<p>
 openTransactions() - writes to transactions.txt every time a user does a transaction<p>
@@ -22,4 +25,7 @@ checkAccountBalance() - prints out current balance of account <p>
 transactionHistory() - prints out to user all recorded transactions for session<p>
 
 
-
+ # Additional features that could be added:
+ <p>
+  login with username and password check
+  
