@@ -11,12 +11,16 @@ public:
 	char username;
 	char password;
 	string accountName;
+	int answer;
 
 	BankAccount();
 	BankAccount(double inital_amount);
-
+	void openAccount(string accountName);
+	void openTransactions(string type, double amount);
+	void cleanMyFile();
 	void menu(void);
 	void createNewAccount();
+	void login();
 	void deposit(double amount);
 	void withdraw(double amount);
 	void checkAccountBalance(string accountName);
@@ -28,7 +32,6 @@ public:
 
 private:
 	double bank_amount;
-	string owner_name;
 };
 
 #endif    //BANKACCOUNT_H
