@@ -1,52 +1,66 @@
 #include <iostream>
 #include "BankAccount.h"
 #include <string>
+#include <stdlib.h>
+#include <fstream>
+#include <sstream>
 
-int answer;
-string accountName;
-int dCount;
-int wCount;
+void BankAccount::openAccount(string accountName){
+  ofstream myfile;
+  myfile.open ("accounts.txt", ios::app);
+  myfile << accountName << "\n";
+  myfile.close();
+}
 
-struct transactions{
-	string transaction;
-	double tAmount;
-} records;
+void BankAccount::openTransactions(string type, double amount){
+	ofstream myfile;
+	myfile.open ("transactions.txt", ios::app);
+  	myfile << type << " " << amount << "\n";
+  	myfile.close();
 
-int trecords[128];
-int numOfValues = 0;
+}
+
+void BankAccount::cleanMyFile(){
+	std::remove("transactions.txt");
+}
 
 void BankAccount::menu(){
-	std::cout << "\nPlease select an action:\n" << endl;
+	std::cout << "\nPlease select an action:" << endl;
+	std::cout << "___________________________ \n" << endl;
 	std::cout << "1. Create a New Account" << endl;
-	std::cout << "2. Deposit " << endl;
-	std::cout << "3. Withdraw" << endl;
-	std::cout << "4. Check your Account Balance" << endl;
-	std::cout << "5. See all Transactions" << endl;
-	std::cout << "6. Exit and Logout" << endl;
+	std::cout << "2. Login" << endl;
+	std::cout << "3. Deposit " << endl;
+	std::cout << "4. Withdraw" << endl;
+	std::cout << "5. Check your Account Balance" << endl;
+	std::cout << "6. See all Transactions" << endl;
+	std::cout << "7. Exit and Logout" << endl;
 	std::cin >> answer;
 
 	switch(answer){
 		case 1:
 			createNewAccount();
 			break;
-		case 2:
+		case 2: 
+			login();
+		case 3:
 			double amount;
 			std::cout << "Enter Amount to Deposit" << endl;
 			cin>> amount;
 			deposit(amount);
 			break;
-		case 3:
+		case 4:
 			std::cout << "Enter Amount to Withdraw" << endl;
 			cin>> amount;
 			withdraw(amount);
 			break;
-		case 4:
+		case 5:
 			checkAccountBalance(accountName);
 			break;
-		case 5:
+		case 6:
 			transactionHistory(accountName);
 			break;
-		case 6:
+		case 7:
+			cleanMyFile();
 			break;
 		default:
             std::cout << "That was not an option, please try again" << endl;
@@ -61,10 +75,41 @@ BankAccount::BankAccount()
 
 //Creates new account 
 void BankAccount::createNewAccount(){
-	std::cout << "Enter Name of Account Holder" << endl;
+	std::cout << "Please enter a username: " << endl;
 	std::cin >> accountName;
-	std::cout << "Congrats Your New Account Has Been Made \n" << endl;
+	openAccount(accountName);
+	std::cout << "Congrats" << accountName << "Has Been Made \n" << endl;
 	menu();
+
+}
+
+void BankAccount::login(){
+	string username;
+	string _username;
+	string line = " ";
+	ifstream readFile("accounts.txt");
+	std::cout << "Please Enter Your Username" << endl;
+	std::cin >> username;
+
+	bool found = false;
+	while (getline(readFile,line)) {
+
+    stringstream iss(line);
+    iss >> _username;
+
+    if (username == _username) {
+        cout << "Login Successful!"<< endl;
+        found = true;
+        menu();
+        break;
+    }
+   
+}
+
+if (!found) {
+    cout << "That username doesnt exist, please try login again or create new account " << endl;
+    menu();
+}
 
 }
 
@@ -72,11 +117,7 @@ void BankAccount::createNewAccount(){
 void BankAccount::deposit(double amount)
 {
 	bank_amount += amount;
-	numOfValues = numOfValues + 1;
-	dCount += 1;
-	trecords[numOfValues] = amount;
-	records.transaction = "deposit" ;
-	records.tAmount = amount;
+	openTransactions("deposit:", amount);
 	menu();
 }
 
@@ -84,7 +125,7 @@ void BankAccount::deposit(double amount)
 void BankAccount::withdraw(double amount)
 {
 	bank_amount -= amount;
-	wCount += 1;
+	openTransactions("withdraw:", amount);
 	menu();
 
 }
@@ -97,21 +138,14 @@ void BankAccount::checkAccountBalance(string accountName)
 }
 
 //Returns all recorded transactions
-
 void BankAccount::transactionHistory(string accountName) 
 {
-	std::cout << "You Deposited " << dCount << " times";
-	std::cout << "You Withdrew " << wCount << " times";
-
-	std::cout << "\n" << endl;
-	//std::cout << "All" << records.transaction;
-
-	cout << "The value of the array is:" << endl;
-    for (int i = 1; i < numOfValues; i++)
-    {
-        cout << i << ": " << trecords[i] << endl;
-    }
-    cout << endl;
+	std::cout << "Your Transactions:\n" << endl;
+	std::ifstream f("transactions.txt");
+	if (f.is_open()){
+        std::cout << f.rdbuf();
+	}
 	menu();
 	
 }
+
