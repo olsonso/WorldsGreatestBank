@@ -25,7 +25,5 @@ checkAccountBalance() - prints out current balance of account <p>
 transactionHistory() - prints out to user all recorded transactions for session<p>
 
 
- # Additional features that could be added:
- <p>
-  login with username and password check
+
   
