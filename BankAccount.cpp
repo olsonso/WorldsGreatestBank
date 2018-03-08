@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 
+//adds username into accounts text file
 void BankAccount::openAccount(string username){
   ofstream myfile;
   myfile.open ("accounts.txt", ios::app);
@@ -12,6 +13,8 @@ void BankAccount::openAccount(string username){
   myfile.close();
 }
 
+//adds transactions to transactions text file
+//this is erased at every end of console
 void BankAccount::openTransactions(string type, double amount){
 	ofstream myfile;
 	myfile.open ("transactions.txt", ios::app);
@@ -20,10 +23,12 @@ void BankAccount::openTransactions(string type, double amount){
 
 }
 
+//clears out all data in transaction file 
 void BankAccount::cleanMyFile(){
 	std::remove("transactions.txt");
 }
 
+//menu options for user
 void BankAccount::menu(){
 	std::cout << "\n Menu" << endl;
 	std::cout << "___________________________ \n" << endl;
@@ -67,6 +72,7 @@ void BankAccount::menu(){
 	}
 }
 
+//initiates account at start of program regardless of login
 BankAccount::BankAccount()
 {
 	bank_amount = 0;
@@ -104,6 +110,7 @@ if (!found) {
 
 }
 
+// checks to see if username exists already or not
 void BankAccount::login(){
 	string username;
 	string _username;
@@ -134,7 +141,7 @@ if (!found) {
 
 }
 
-//Adds user's amount to the current amount
+//Adds input amount to the balance
 void BankAccount::deposit(double amount)
 {
 	bank_amount += amount;
@@ -145,7 +152,7 @@ void BankAccount::deposit(double amount)
 	menu();
 }
 
-//Subtracts the user's amount from the current amount
+//Subtracts the input amount from the balance
 void BankAccount::withdraw(double amount)
 {
 	bank_amount -= amount;
