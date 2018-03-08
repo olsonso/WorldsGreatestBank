@@ -5,10 +5,10 @@
 #include <fstream>
 #include <sstream>
 
-void BankAccount::openAccount(string accountName){
+void BankAccount::openAccount(string username){
   ofstream myfile;
   myfile.open ("accounts.txt", ios::app);
-  myfile << accountName << "\n";
+  myfile << username << "\n";
   myfile.close();
 }
 
@@ -25,7 +25,7 @@ void BankAccount::cleanMyFile(){
 }
 
 void BankAccount::menu(){
-	std::cout << "\nPlease select an action:" << endl;
+	std::cout << "\n Menu" << endl;
 	std::cout << "___________________________ \n" << endl;
 	std::cout << "1. Create a New Account" << endl;
 	std::cout << "2. Login" << endl;
@@ -45,7 +45,7 @@ void BankAccount::menu(){
 		case 3:
 			double amount;
 			std::cout << "Enter Amount to Deposit" << endl;
-			cin>> amount;
+			cin >> amount;
 			deposit(amount);
 			break;
 		case 4:
@@ -54,16 +54,15 @@ void BankAccount::menu(){
 			withdraw(amount);
 			break;
 		case 5:
-			checkAccountBalance(accountName);
+			checkAccountBalance(username);
 			break;
 		case 6:
-			transactionHistory(accountName);
+			transactionHistory(username);
 			break;
 		case 7:
-			cleanMyFile();
 			break;
 		default:
-            std::cout << "That was not an option, please try again" << endl;
+            std::cout << "Invalid input, please enter a choice 1 - 7" << endl;
            	menu();
 	}
 }
@@ -76,10 +75,32 @@ BankAccount::BankAccount()
 //Creates new account 
 void BankAccount::createNewAccount(){
 	std::cout << "Please enter a username: " << endl;
-	std::cin >> accountName;
-	openAccount(accountName);
-	std::cout << "Congrats" << accountName << "Has Been Made \n" << endl;
-	menu();
+	std::cin >> username;
+	string _username;
+	string line = " ";
+	ifstream readFile("accounts.txt");
+
+	bool found = false;
+	while (getline(readFile,line)) {
+
+    stringstream iss(line);
+    iss >> _username;
+
+    if (username == _username) {
+        cout << "That username already exists, please login"<< endl;
+        found = true;
+        menu();
+        break;
+    }
+   
+}
+
+if (!found) {
+	openAccount(username);
+	std::cout << "Congrats " << username << " Has Been Made \n" << endl;
+    menu();
+	}
+
 
 }
 
@@ -88,7 +109,7 @@ void BankAccount::login(){
 	string _username;
 	string line = " ";
 	ifstream readFile("accounts.txt");
-	std::cout << "Please Enter Your Username" << endl;
+	std::cout << "Please enter your username" << endl;
 	std::cin >> username;
 
 	bool found = false;
@@ -118,6 +139,9 @@ void BankAccount::deposit(double amount)
 {
 	bank_amount += amount;
 	openTransactions("deposit:", amount);
+	std::cout << "You deposited " << amount << " into your account \n" << endl;
+	std::cout << "Your new balance is: $ " << bank_amount << endl;
+
 	menu();
 }
 
@@ -126,19 +150,21 @@ void BankAccount::withdraw(double amount)
 {
 	bank_amount -= amount;
 	openTransactions("withdraw:", amount);
+	std::cout << "You withdrew " << amount << " from your account \n" << endl;
+	std::cout << "Your new balance is: $ " << bank_amount << endl;
 	menu();
 
 }
 
 //Returns the bank account's balance
-void BankAccount::checkAccountBalance(string accountName)
+void BankAccount::checkAccountBalance(string username)
 {
-	std::cout << "\n Your Current Balance:" << bank_amount << "\n";
+	std::cout << "\n Your Current Balance: $" << bank_amount << "\n";
 	menu();
 }
 
 //Returns all recorded transactions
-void BankAccount::transactionHistory(string accountName) 
+void BankAccount::transactionHistory(string username) 
 {
 	std::cout << "Your Transactions:\n" << endl;
 	std::ifstream f("transactions.txt");
