@@ -8,14 +8,12 @@ using namespace std;
 class BankAccount
 {
 public:
-	char username;
-	char password;
-	string accountName;
+	string username;
 	int answer;
 
 	BankAccount();
 	BankAccount(double inital_amount);
-	void openAccount(string accountName);
+	void openAccount(string username);
 	void openTransactions(string type, double amount);
 	void cleanMyFile();
 	void menu(void);
@@ -23,8 +21,8 @@ public:
 	void login();
 	void deposit(double amount);
 	void withdraw(double amount);
-	void checkAccountBalance(string accountName);
-	void transactionHistory(string accountName);
+	void checkAccountBalance(string username);
+	void transactionHistory(string username);
 	
 	//Acessors
 	double amount() const;
