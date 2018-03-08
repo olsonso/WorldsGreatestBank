@@ -1,0 +1,31 @@
+/* Put your css in here */
+.firstWord {
+  font-family: 'Open Sans', sans-serif; font-weight: 300
+}
+
+.secondWord {
+  font-family: 'Open Sans', sans-serif; font-weight: 400
+}
+
+
+body{
+  background:lightgray;
+  color:white;
+}
+
+.panel-title{
+  color:gray;
+
+}
+
+.panel-default{
+  background:lightblue;
+}
+
+.table{
+  background:lightblue;
+}
+
+.alert{
+  color:red;
+}
